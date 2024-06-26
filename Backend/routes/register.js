@@ -4,7 +4,7 @@ const router=express.Router();
 
 
 
-router.post("/register",registration.createUser);
+router.post("/",registration.createUser);
 
 
 

@@ -1,20 +1,28 @@
-import React from 'react'
+// src/Components/ProfileChat/ProfileChat.js
+
+import React, { useContext } from 'react';
+import { ChatContext } from '../../Context/ChatContext';
 
 const ProfileChat = () => {
-  return (
-    <div className=' w-2/6 bg-[#83DF75] flex flex-col items-center pt-3'>
-        <div>
-            Information
-        </div>
-        <div>
-            <img src="" alt="" />
-        </div>
-        <div>
-            <div></div>
-            <div></div>
-        </div>
-    </div>
-  )
-}
+  const { currentUser } = useContext(ChatContext);
 
-export default ProfileChat
+  if (!currentUser) return <div>Select a user to view their profile</div>;
+
+  return (
+    <div className='w-2/6 bg-[#83DF75] flex flex-col items-center pt-3'>
+      <div>
+        <h2>{currentUser.name}</h2>
+        <p>{currentUser.email}</p>
+      </div>
+      <div>
+        <img src="" alt="Profile" />
+      </div>
+      <div>
+        <div></div>
+        <div></div>
+      </div>
+    </div>
+  );
+};
+
+export default ProfileChat;
