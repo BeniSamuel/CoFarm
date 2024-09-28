@@ -58,7 +58,7 @@ const SignUp = () => {
           />
           <p className='text-[#49881F] text-center'>
             Already on site.{' '}
-            <Link to='/login'>
+            <Link to='/'>
               <span className='text-[#184B05] font-semibold'>Login</span>
             </Link>
           </p>
