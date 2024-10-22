@@ -5,11 +5,15 @@
              the farmers also the workers in their farmers
 
 
-**Features**: - Registration Page
-              - Dashboard Page: - Home
-                                - Chat
-                                - Farms
-                                - Profile
+**Features**: 
+- Registration Page
+
+  - Dashboard Page:
+  - - Home
+  - - Chat
+  - - Farms
+  - - Profile
+    - 
 **How to use the Project**: 
 
 1. You can use this project by visit 
