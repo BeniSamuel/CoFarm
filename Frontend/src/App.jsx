@@ -10,6 +10,7 @@ import UploadProfile from "./Pages/UploadProfile/UploadProfile";
 import Farm from "./Pages/farms/Farm";
 
 const App = () => {
+  // test fn
   return (
     <Router>
       <Routes>
