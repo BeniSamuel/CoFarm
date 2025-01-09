@@ -7,7 +7,7 @@ import Dashboard from "./Pages/Dashboard/Dashboard";
 import Chat from "./Pages/Chat/Chat";
 import { Toaster } from "react-hot-toast";
 import UploadProfile from "./Pages/UploadProfile/UploadProfile";
-import Farm from "./Pages/farms/Farm";
+import Farm from "./Pages/Farms/Farm";
 
 const App = () => {
   // test fn
