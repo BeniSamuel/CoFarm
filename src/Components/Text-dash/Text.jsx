@@ -21,7 +21,7 @@ const Text = () => {
   }, [messages.length]);
 
   return (
-    <div className="bg-[#eaf7e8] w-[60rem] flex flex-row gap-4 px-12 py-4 transition-all duration-1000 ease-in-out">
+    <div className="bg-[#eaf7e8] w-[60rem] flex flex-row gap-4 px-12 py-4 transition-all duration-1000 ease-in-out rounded-lg">
       <div className=" h-14 w-1.5 bg-[#83DF75] rounded-lg" />
       <div className=" flex flex-col gap-2 justify-center ">
         <div className="font-bold text-sm">
