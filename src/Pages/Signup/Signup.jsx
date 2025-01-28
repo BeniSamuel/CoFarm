@@ -59,7 +59,7 @@ const SignUp = () => {
           </p>
           <input
             type="submit"
-            value="SignUp"
+            value="Signup"
             className="bg-[#184B05] h-14 w-96 rounded-lg text-white text-sm "
           />
           <p className="text-[#49881F] text-center text-sm">
