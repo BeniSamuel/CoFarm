@@ -51,7 +51,7 @@ const ChatLeftNav = () => {
             </div>
           ))
         ) : (
-          <div><p className="text-sm">No users found</p></div>
+          <div className=" flex flex-col items-center justify-center h-80"><p className="text-sm text-white">No users found</p></div>
         )}
       </div>
     </div>
