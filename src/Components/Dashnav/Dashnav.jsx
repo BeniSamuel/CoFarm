@@ -19,7 +19,7 @@ const Dashnav = () => {
 
   return (
     <div className="bg-[#184B05] flex flex-col w-1/6 h-[100vh] items-center py-4 gap-20">
-      <div className="text-white font-bold text-sm">FMIS</div>
+      <div className="text-white font-bold text-sm">CoFarm</div>
       <div className="h-5/6 flex flex-col items-center justify-between">
         <ul className="flex flex-col gap-6">
           <li
