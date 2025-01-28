@@ -26,12 +26,12 @@ const SignUp = () => {
   };
 
   return (
-    <div className="flex flex-row w-full">
-      <Loginleft className="w-1/2" />
-      <div className="flex flex-col justify-center w-1/2 items-center gap-12">
+    <div className="flex flex-col md:flex-row w-full">
+      <Loginleft className="w-full md:w-1/2 sm:h-[50vh] h-1/2 md:h-[100vh]" />
+      <div className="flex flex-col justify-center w-full md:w-1/2 items-center  gap-12 h-1/2 md:h-[100vh]">
         <div className="w-96">
-          <h1 className="text-[#459438] font-bold text-xl">Welcome Back!!</h1>
-          <p className="text-[#49881F] text-left">
+          <h1 className="text-[#459438] font-bold text-lg ">Welcome Back!!</h1>
+          <p className="text-[#49881F] text-left text-sm ">
             Register again in order to access FMIS
           </p>
         </div>
@@ -39,33 +39,33 @@ const SignUp = () => {
           <input
             type="text"
             placeholder="Username"
-            className="border-2 border-[#184B05] h-14 w-96 pl-4 placeholder-[#49881F] rounded-lg"
+            className="border-2 border-[#184B05] h-12 md:h-[3.2rem] w-96 pl-4 placeholder-[#49881F] placeholder:text-sm rounded-lg text-sm"
             onChange={(e) => setInform({ ...inform, name: e.target.value })}
           />
           <input
             type="email"
             placeholder="Email"
-            className="border-2 border-[#184B05] h-14 w-96 pl-4 placeholder-[#49881F] rounded-lg"
+            className="border-2 border-[#184B05] h-12 md:h-[3.2rem] w-96 pl-4 placeholder-[#49881F] placeholder:text-sm rounded-lg text-sm"
             onChange={(e) => setInform({ ...inform, email: e.target.value })}
           />
           <input
             type="password"
             placeholder="Password"
-            className="border-2 border-[#184B05] h-14 w-96 pl-4 placeholder-[#49881F] rounded-lg"
+            className="border-2 border-[#184B05] h-12 md:h-[3.2rem] w-96 pl-4 placeholder-[#49881F] placeholder:text-sm rounded-lg text-sm"
             onChange={(e) => setInform({ ...inform, password: e.target.value })}
           />
-          <p className="text-[#184B05] font-semibold text-right">
+          <p className="text-[#184B05] font-semibold text-right text-sm">
             Forgot Password?
           </p>
           <input
             type="submit"
             value="SignUp"
-            className="bg-[#184B05] h-14 w-96 rounded-lg text-white"
+            className="bg-[#184B05] h-14 w-96 rounded-lg text-white text-sm "
           />
-          <p className="text-[#49881F] text-center">
+          <p className="text-[#49881F] text-center text-sm">
             Already on site.{" "}
             <Link to="/">
-              <span className="text-[#184B05] font-semibold">Login</span>
+              <span className="text-[#184B05] font-semibold text-sm ">Login</span>
             </Link>
           </p>
         </form>

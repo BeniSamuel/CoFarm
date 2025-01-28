@@ -8,7 +8,7 @@ const Loginleft = () => {
         <div className=" bg-[#83DF75] h-[20rem] w-[20rem] md:h-[23rem] md:w-[23rem] rounded-full flex flex-col items-center justify-center ">
           <img src={farmer1} className="h-60 w-48  md:h-80 md:w-62" />
         </div>
-        <p className=" text-white text-sm md:text-lg md:font-medium">
+        <p className=" text-white text-sm md:font-medium md:text-sm">
           Join the family of farmers
         </p>
       </div>

@@ -11,7 +11,7 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("http://localhost:4040/login", inform);
+      const response = await axios.post("http://localhost:4040/login", inform );
       console.log(response.data);
       toast.success("Successfully logged in");
       navigate("/dashboard"); // Navigate to dashboard
@@ -26,8 +26,8 @@ const Login = () => {
       <Loginleft className=" w-full md:w-1/2 sm:h-[50vh]" />
       <div className="p-12 w-full  md:w-1/2 md:h-[100vh] flex flex-col items-center justify-center gap-12">
         <div className="w-96">
-          <h1 className="text-[#459438] font-bold text-xl">Welcome Back!!</h1>
-          <p className="text-[#49881F] text-left">
+          <h1 className="text-[#459438] font-bold text-lg">Welcome Back!!</h1>
+          <p className="text-[#49881F] text-left text-sm">
             Register again in order to access FMIS
           </p>
         </div>
@@ -35,27 +35,27 @@ const Login = () => {
           <input
             type="email"
             placeholder="Email"
-            className="border-2 border-[#184B05] h-12 w-96 md:h-14 md:w-96 pl-4 placeholder-[#49881F] rounded-lg"
+            className="border-2 border-[#184B05] h-12 w-96 md:h-[3.2rem] md:w-96 pl-4 placeholder-[#49881F] placeholder:text-sm rounded-lg text-sm text-[##49881F]"
             onChange={(e) => setInform({ ...inform, email: e.target.value })}
           />
           <input
             type="password"
             placeholder="Password"
-            className="border-2 border-[#184B05] h-12 w-96 md:h-14 md:w-96 pl-4 placeholder-[#49881F] rounded-lg"
+            className="border-2 border-[#184B05] h-12 w-96 md:h-[3.2rem] md:w-96 pl-4 placeholder-[#49881F] placeholder:text-sm rounded-lg text-sm text-[##49881F]"
             onChange={(e) => setInform({ ...inform, password: e.target.value })}
           />
-          <p className="text-[#184B05] font-semibold text-right">
+          <p className="text-[#184B05] font-semibold text-right text-sm">
             Forgot Password?
           </p>
           <input
             type="submit"
             value="Login"
-            className="bg-[#184B05] h-12 w-96 md:h-14 md:w-96 rounded-lg text-white"
+            className="bg-[#184B05] h-12 w-96 md:h-14 md:w-96 rounded-lg text-white text-sm "
           />
-          <p className="text-[#49881F] text-center">
+          <p className="text-[#49881F] text-center text-sm">
             New to the site?{" "}
             <Link to="/signup">
-              <span className="text-[#184B05] font-semibold">Sign Up</span>
+              <span className="text-[#184B05] font-semibold text-sm">Sign Up</span>
             </Link>
           </p>
         </form>
