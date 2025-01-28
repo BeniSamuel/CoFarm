@@ -55,42 +55,44 @@ const ChatMessage = () => {
   };
 
   return (
-    <div className="w-3/6">
-      <div>Chat</div>
-      <div className="relative top-[31rem] flex flex-row">
+    <div className="w-3/6 flex flex-col h-[100vh]">
+      <div className=" h-[90vh] overflow-y-auto">
+        <div className=" text-sm ">Chat</div>
+        <div>
+          {messages.map((msg, index) => (
+            <div
+              key={index}
+              className={`flex ${
+                msg.senderId === currentUserId ? "justify-end" : "justify-start"
+              }`}
+            >
+              <div
+                className={`p-2 m-2 text-sm ${
+                  msg.senderId === currentUserId
+                    ? "bg-blue-500 text-white"
+                    : "bg-gray-300 text-black"
+                }`}
+              >
+                {msg.message}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+      <div className=" relative flex flex-row">
         <input
           type="text"
           placeholder="Type a message..."
-          className="bg-[#83DF75] h-14 w-[36rem] relative left-7 placeholder-black pl-5 rounded-lg border-2 border-[#184B05]"
+          className="bg-[#83DF75] h-[3.2rem] w-[36rem] relative left-7 placeholder-black placeholder:text-sm pl-5 rounded-lg border-2 border-[#184B05] text-sm "
           value={message}
           onChange={(e) => setMessage(e.target.value)}
         />
         <img
           src={button}
-          className="absolute top-3 left-[35rem] h-7 w-7"
+          className="absolute top-3 left-[35rem] h-6 w-6"
           alt="Send"
           onClick={handleClick}
         />
-      </div>
-      <div>
-        {messages.map((msg, index) => (
-          <div
-            key={index}
-            className={`flex ${
-              msg.senderId === currentUserId ? "justify-end" : "justify-start"
-            }`}
-          >
-            <div
-              className={`p-2 m-2 ${
-                msg.senderId === currentUserId
-                  ? "bg-blue-500 text-white"
-                  : "bg-gray-300 text-black"
-              }`}
-            >
-              {msg.message}
-            </div>
-          </div>
-        ))}
       </div>
     </div>
   );
