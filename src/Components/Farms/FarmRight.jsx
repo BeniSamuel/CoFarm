@@ -16,7 +16,7 @@ const FarmRight = () => {
           (
             <div className=" flex flex-col items-center py-12">
               <img src={empty} className=" h-44 w-44"/>
-              <p className=" text-sm text-green-900">No availabe farms</p>
+              <p className=" text-sm text-green-900">No availabe data</p>
             </div>
           )
           : 
