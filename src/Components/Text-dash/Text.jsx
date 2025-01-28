@@ -3,10 +3,10 @@ import React from "react";
 
 const Text = () => {
   const messages = [
-    "You are welcomed here on the FMIS. You can see the information about your farm and chat with others.",
-    "Keep your farm healthy and productive with FMIS insights!",
-    "Check out the latest updates on your farm and connect with others here on FMIS.",
-    "FMIS empowers you to manage your farm efficiently and collaborate with the community.",
+    "You are welcomed here on the CoFarm. You can see the information about your farm and chat with others.",
+    "Keep your farm healthy and productive with CoFarm insights!",
+    "Check out the latest updates on your farm and connect with others here on CoFarm.",
+    "CoFarm empowers you to manage your farm efficiently and collaborate with the community.",
   ];
 
   const [currentMessageIndex, setCurrentMessageIndex] = useState(0);
