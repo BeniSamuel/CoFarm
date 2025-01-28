@@ -27,7 +27,7 @@ const ChatLeftNav = () => {
         <input
           type="search"
           placeholder="search..."
-          className="bg-[#83DF75] placeholder-black h-10 w-44 pl-2 rounded-lg"
+          className="bg-[#83DF75] placeholder-black placeholder:text-sm h-8 w-44 pl-2 rounded-lg"
         />
       </div>
       <div className=" cursor-pointer">
@@ -51,7 +51,7 @@ const ChatLeftNav = () => {
             </div>
           ))
         ) : (
-          <div><p>No users found</p></div>
+          <div><p className="text-sm">No users found</p></div>
         )}
       </div>
     </div>
