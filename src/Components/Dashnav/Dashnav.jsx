@@ -1,25 +1,37 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import React from "react";
 import dash_img from "../../assets/dashboard.png";
 import mess_icon from "../../assets/message.svg";
 import farm_icon from "../../assets/farm.svg";
 
 const Dashnav = () => {
-  const [activeTab, setActiveTab] = useState("dashboard");
   const navigate = useNavigate();
+  const location = useLocation();
+  const [activeTab, setActiveTab] = useState("");
+
+  // Sync activeTab with the current route on initial render and route changes
+  useEffect(() => {
+    const currentPath = location.pathname;
+    if (currentPath.includes("/dashboard")) setActiveTab("dashboard");
+    else if (currentPath.includes("/chat")) setActiveTab("chats");
+    else if (currentPath.includes("/farms")) setActiveTab("farms");
+  }, [location]);
 
   const handleNavigation = (tab, route) => {
     if (activeTab !== tab) {
-      // Update state and navigate in sync
-      setActiveTab(tab);
       navigate(route);
     }
   };
 
   return (
     <div className="bg-[#184B05] flex flex-col w-1/6 h-[100vh] items-center py-4 gap-20">
-      <div className="text-white font-bold text-sm cursor-pointer" onClick={() => { navigate("/dashboard")}}>CoFarm</div>
+      <div
+        className="text-white font-bold text-sm cursor-pointer"
+        onClick={() => handleNavigation("dashboard", "/dashboard")}
+      >
+        CoFarm
+      </div>
       <div className="h-5/6 flex flex-col items-center justify-between">
         <ul className="flex flex-col gap-6">
           <li
