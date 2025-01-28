@@ -4,7 +4,7 @@ import profile_img from "../../assets/profile_image.png";
 
 const Dashtop = () => {
   return (
-    <div className=" bg-[#83DF75] flex flex-row justify-between items-center px-6 w-full h-14">
+    <div className=" bg-[#83DF75] flex flex-row justify-between items-center px-6 w-full h-[3.2rem]">
       <div>
         <img src={menu_icon} className=" h-7 w-7" />
       </div>
