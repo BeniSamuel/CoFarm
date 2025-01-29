@@ -11,7 +11,7 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("http://localhost:4040/login", inform );
+      const response = await axios.post("http://localhost:4040/api/v1/auth/login", inform );
       console.log(response.data);
       toast.success("Successfully logged in");
       navigate("/dashboard"); // Navigate to dashboard

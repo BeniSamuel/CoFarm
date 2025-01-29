@@ -12,7 +12,7 @@ const ChatLeftNav = () => {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await axios.get("http://localhost:4040/users");
+        const response = await axios.get("http://localhost:4040/api/v1/users");
         setUsers(response.data);
       } catch (error) {
         toast.error("Failed to get users!");

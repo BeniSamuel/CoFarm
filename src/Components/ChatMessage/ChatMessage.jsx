@@ -40,7 +40,7 @@ const ChatMessage = () => {
 
   const handleClick = () => {
     axios
-      .post("http://localhost:4040/messages", {
+      .post("http://localhost:4040/api/v1/messages", {
         senderId: currentUserId,
         receiverId: currentUser._id,
         message: message,
