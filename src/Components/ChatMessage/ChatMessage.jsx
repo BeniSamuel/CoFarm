@@ -57,7 +57,7 @@ const ChatMessage = () => {
   return (
     <div className="w-3/6 flex flex-col h-[100vh]">
       <div className=" h-[90vh] overflow-y-auto">
-        <div className=" text-sm ">Chat</div>
+        <div className=" text-sm text-center">Chat</div>
         <div>
           {messages.map((msg, index) => (
             <div

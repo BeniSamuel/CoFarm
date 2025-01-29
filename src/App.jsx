@@ -25,6 +25,7 @@ const App = () => {
         toastOptions={{
           style: {
             color: "black",
+            fontSize: "small"
           },
         }}
       />
