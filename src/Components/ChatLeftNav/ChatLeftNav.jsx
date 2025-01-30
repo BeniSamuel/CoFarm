@@ -40,7 +40,7 @@ const ChatLeftNav = () => {
             >
               <div className="flex items-center gap-2">
                 <div>
-                  <img src={user1} className="h-12 w-12" alt="user" />
+                  <img src={user1} className="h-10 w-10" alt="user" />
                 </div>
                 <div>
                   <div className="text-white text-sm font-semibold">

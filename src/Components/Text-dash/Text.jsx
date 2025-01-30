@@ -1,7 +1,28 @@
 import { useState, useEffect } from "react";
 import React from "react";
+import axios from "axios";
 
 const Text = () => {
+  const token = localStorage.getItem("accessToken");
+  const [currentUser, setCurrentUser] = useState({});
+
+  useEffect(() => {
+    const userInform = async () => {
+      try {
+        const res = await axios.get("http://localhost:4040/api/v1/users/me", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        console.log(res.data);
+        setCurrentUser(res.data);
+      } catch (error) {
+        console.error("Error occured: ", error);
+      }
+    };
+    userInform();
+  }, []);
+
   const messages = [
     "You are welcomed here on the CoFarm. You can see the information about your farm and chat with others.",
     "Keep your farm healthy and productive with CoFarm insights!",
@@ -24,13 +45,14 @@ const Text = () => {
     <div className="bg-[#eaf7e8] w-[60rem] flex flex-row gap-4 px-12 py-4 transition-all duration-1000 ease-in-out rounded-lg">
       <div className=" h-14 w-1.5 bg-[#83DF75] rounded-lg" />
       <div className=" flex flex-col gap-2 justify-center ">
-        <div className="font-bold text-sm">
+        <div className="font-bold text-sm flex flex-row gap-3 items-center">
           {new Date(Date.now()).getHours() < 12
             ? "Good Morning"
             : new Date(Date.now()).getHours() >= 12 &&
               new Date(Date.now()).getHours() < 18
             ? "Good Afternoon"
             : "Good Evening"}
+          <p className=" text-black text-sm ">{currentUser.name} 🖐️</p>
         </div>
         <p
           className="font-2xl text-sm transition-opacity duration-1000"

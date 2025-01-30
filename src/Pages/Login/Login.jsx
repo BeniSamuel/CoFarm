@@ -12,7 +12,10 @@ const Login = () => {
     e.preventDefault();
     try {
       const response = await axios.post("http://localhost:4040/api/v1/auth/login", inform );
-      console.log(response.data);
+
+      const token = response.data.access_token;
+      console.log(token);
+      localStorage.setItem("accessToken",token);
       toast.success("Successfully logged in");
       navigate("/dashboard"); // Navigate to dashboard
     } catch (error) {
