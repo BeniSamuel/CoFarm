@@ -1,5 +1,4 @@
-// ChatLeftNav.js
-import React, { useEffect, useState, useContext } from "react";
+import { useEffect, useState, useContext } from "react";
 import axios from "axios";
 import { toast } from "react-hot-toast";
 import user1 from "../../assets/user1.png";
@@ -7,7 +6,7 @@ import { ChatContext } from "../../Context/ChatContext";
 
 const ChatLeftNav = () => {
   const [users, setUsers] = useState([]);
-  const { setCurrentUser } = useContext(ChatContext);
+  const { setCurrentUser, setMessages } = useContext(ChatContext);
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -21,6 +20,11 @@ const ChatLeftNav = () => {
     fetchUsers();
   }, []);
 
+  const handleUserClick = (user) => {
+    setCurrentUser(user);
+    setMessages([]); // Clear messages when a new user is selected
+  };
+
   return (
     <div className="bg-[#184B05] flex flex-col h-[100vh] w-1/6 items-center pt-4 overflow-y-auto">
       <div>
@@ -30,13 +34,13 @@ const ChatLeftNav = () => {
           className="bg-[#83DF75] placeholder-black placeholder:text-sm h-8 w-44 pl-2 rounded-lg"
         />
       </div>
-      <div className=" cursor-pointer">
+      <div className="cursor-pointer">
         {users.length > 0 ? (
           users.map((user) => (
             <div
               className="flex flex-col gap-24 p-3"
               key={user._id}
-              onClick={() => setCurrentUser(user)}
+              onClick={() => handleUserClick(user)}
             >
               <div className="flex items-center gap-2">
                 <div>
@@ -51,7 +55,9 @@ const ChatLeftNav = () => {
             </div>
           ))
         ) : (
-          <div className=" flex flex-col items-center justify-center h-80"><p className="text-sm text-white">No users found</p></div>
+          <div className="flex flex-col items-center justify-center h-80">
+            <p className="text-sm text-white">No users found</p>
+          </div>
         )}
       </div>
     </div>

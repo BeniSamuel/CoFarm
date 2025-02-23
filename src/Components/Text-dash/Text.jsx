@@ -1,10 +1,12 @@
 import { useState, useEffect } from "react";
 import React from "react";
 import axios from "axios";
+import { ChatContext } from "../../Context/ChatContext";
+import { useContext } from "react";
 
 const Text = () => {
   const token = localStorage.getItem("accessToken");
-  const [currentUser, setCurrentUser] = useState({});
+  const {loggedUser, setLoggedUser} = useContext(ChatContext);
 
   useEffect(() => {
     const userInform = async () => {
@@ -15,7 +17,10 @@ const Text = () => {
           },
         });
         console.log(res.data);
-        setCurrentUser(res.data);
+        setLoggedUser(res.data);
+        console.log("Logged User")
+        console.log(loggedUser)
+        console.log(loggedUser._id)
       } catch (error) {
         console.error("Error occured: ", error);
       }
@@ -52,7 +57,7 @@ const Text = () => {
               new Date(Date.now()).getHours() < 18
             ? "Good Afternoon"
             : "Good Evening"}
-          <p className=" text-black text-sm ">{currentUser.name} 🖐️</p>
+          <p className=" text-black text-sm ">{loggedUser.name} 🖐️</p>
         </div>
         <p
           className="font-2xl text-sm transition-opacity duration-1000"

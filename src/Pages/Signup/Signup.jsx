@@ -18,7 +18,7 @@ const SignUp = () => {
       );
       console.log(response.data);
       toast.success("User successfully created!");
-      navigate("/dashboard");
+      navigate("/");
     } catch (error) {
       console.log("There was an error in registering", error);
       toast.error("Error occurred!");
