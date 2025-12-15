@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import axios from "axios";
 import { toast } from "react-hot-toast";
 import Loginleft from "../../Components/Login-Left/Loginleft";
@@ -39,19 +39,22 @@ const SignUp = () => {
           <input
             type="text"
             placeholder="Username"
-            className="border-2 border-[#184B05] h-12 md:h-[3.2rem] w-96 pl-4 placeholder-[#49881F] placeholder:text-sm rounded-lg text-sm"
+            value={inform.name}
+            className="border-2 border-[#184B05] h-12 md:h-[3.2rem] w-96 pl-4 placeholder-[#49881F] placeholder:text-sm rounded-lg text-sm text-[#49881F]"
             onChange={(e) => setInform({ ...inform, name: e.target.value })}
           />
           <input
             type="email"
             placeholder="Email"
-            className="border-2 border-[#184B05] h-12 md:h-[3.2rem] w-96 pl-4 placeholder-[#49881F] placeholder:text-sm rounded-lg text-sm"
+            value={inform.email}
+            className="border-2 border-[#184B05] h-12 md:h-[3.2rem] w-96 pl-4 placeholder-[#49881F] placeholder:text-sm rounded-lg text-sm text-[#49881F]"
             onChange={(e) => setInform({ ...inform, email: e.target.value })}
           />
           <input
             type="password"
             placeholder="Password"
-            className="border-2 border-[#184B05] h-12 md:h-[3.2rem] w-96 pl-4 placeholder-[#49881F] placeholder:text-sm rounded-lg text-sm"
+            value={inform.password}
+            className="border-2 border-[#184B05] h-12 md:h-[3.2rem] w-96 pl-4 placeholder-[#49881F] placeholder:text-sm rounded-lg text-sm text-[#49881F]"
             onChange={(e) => setInform({ ...inform, password: e.target.value })}
           />
           <p className="text-[#184B05] font-semibold text-right text-sm">
@@ -65,7 +68,9 @@ const SignUp = () => {
           <p className="text-[#49881F] text-center text-sm">
             Already on site.{" "}
             <Link to="/">
-              <span className="text-[#184B05] font-semibold text-sm ">Login</span>
+              <span className="text-[#184B05] font-semibold text-sm ">
+                Login
+              </span>
             </Link>
           </p>
         </form>
