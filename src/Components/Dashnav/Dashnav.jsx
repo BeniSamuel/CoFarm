@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import React from "react";
 import dash_img from "../../assets/dashboard.png";
 import mess_icon from "../../assets/message.svg";
 import farm_icon from "../../assets/farm.svg";
+import { toast } from "react-hot-toast";
 
 const Dashnav = () => {
   const navigate = useNavigate();
@@ -22,6 +22,12 @@ const Dashnav = () => {
     if (activeTab !== tab) {
       navigate(route);
     }
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem("accessToken");
+    toast.success("Logged out successfully");
+    navigate("/");
   };
 
   return (
@@ -78,7 +84,10 @@ const Dashnav = () => {
           </li>
         </ul>
         <div>
-          <button className="text-white bg-white bg-opacity-30 w-48 h-10 rounded-md font-semibold text-sm transition-all duration-200 hover:bg-opacity-40">
+          <button
+            onClick={handleLogout}
+            className="text-white bg-white bg-opacity-30 w-48 h-10 rounded-md font-semibold text-sm transition-all duration-200 hover:bg-opacity-40"
+          >
             Logout
           </button>
         </div>
