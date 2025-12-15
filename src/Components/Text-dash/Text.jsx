@@ -1,12 +1,10 @@
-import { useState, useEffect } from "react";
-import React from "react";
+import { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { ChatContext } from "../../Context/ChatContext";
-import { useContext } from "react";
 
 const Text = () => {
   const token = localStorage.getItem("accessToken");
-  const {loggedUser, setLoggedUser} = useContext(ChatContext);
+  const { loggedUser, setLoggedUser } = useContext(ChatContext);
 
   useEffect(() => {
     const userInform = async () => {
@@ -16,17 +14,15 @@ const Text = () => {
             Authorization: `Bearer ${token}`,
           },
         });
-        console.log(res.data);
         setLoggedUser(res.data);
-        console.log("Logged User")
-        console.log(loggedUser)
-        console.log(loggedUser._id)
       } catch (error) {
-        console.error("Error occured: ", error);
+        console.error("Error occurred: ", error);
       }
     };
-    userInform();
-  }, []);
+    if (token) {
+      userInform();
+    }
+  }, [token, setLoggedUser]);
 
   const messages = [
     "You are welcomed here on the CoFarm. You can see the information about your farm and chat with others.",
@@ -47,7 +43,7 @@ const Text = () => {
   }, [messages.length]);
 
   return (
-    <div className="bg-[#eaf7e8] w-[60rem] flex flex-row gap-4 px-12 py-4 transition-all duration-1000 ease-in-out rounded-lg">
+    <div className="bg-[#eaf7e8] w-full flex flex-row gap-4 px-12 py-4 transition-all duration-1000 ease-in-out rounded-lg">
       <div className=" h-14 w-1.5 bg-[#83DF75] rounded-lg" />
       <div className=" flex flex-col gap-2 justify-center ">
         <div className="font-bold text-sm flex flex-row gap-3 items-center">
