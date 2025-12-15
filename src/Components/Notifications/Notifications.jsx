@@ -1,4 +1,3 @@
-import React from "react";
 import imageNotification from "../../assets/Notification.svg";
 
 const Notifications = () => {
