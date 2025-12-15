@@ -1,4 +1,3 @@
-import React from "react";
 import farmer1 from "../../assets/farmer1.png";
 
 const Loginleft = () => {
