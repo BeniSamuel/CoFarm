@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import Loginleft from "../../Components/Login-Left/Loginleft";
 import profile from "../../assets/profile.svg";
 import editButton from "../../assets/edit.svg";
+import axios from "axios";
+import { toast } from "react-hot-toast";
 
 const UploadProfile = () => {
   const [selectedFile, setSelectedFile] = useState(null);
@@ -20,7 +22,7 @@ const UploadProfile = () => {
   // Handle file upload
   const handleUpload = async () => {
     if (!selectedFile) {
-      alert("Please select a file first!");
+      toast.error("Please select a file first!");
       return;
     }
 
@@ -28,21 +30,24 @@ const UploadProfile = () => {
     formData.append("profilePicture", selectedFile);
 
     try {
-      // Replace with your backend API endpoint
-      const response = await fetch("http://localhost:5000/api/upload", {
-        method: "POST",
-        body: formData,
-      });
+      const token = localStorage.getItem("accessToken");
+      const response = await axios.post(
+        "http://localhost:4040/api/v1/users/upload-profile",
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
-      if (response.ok) {
-        alert("Profile uploaded successfully!");
-        // Navigate to dashboard or do other logic here
-      } else {
-        alert("Error uploading profile.");
+      if (response.status === 200) {
+        toast.success("Profile uploaded successfully!");
       }
     } catch (error) {
       console.error("Upload error:", error);
-      alert("Failed to upload the profile.");
+      toast.error("Failed to upload the profile.");
     }
   };
 
