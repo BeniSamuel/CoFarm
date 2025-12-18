@@ -2,7 +2,6 @@ const User = require("../models/user.model");
 const jwt = require("jsonwebtoken");
 const Joi = require("joi");
 const bcrypt = require("bcrypt");
-const config = require("../config/config.config");
 
 exports.loginUser = async (req, res) => {
   try {
@@ -24,9 +23,10 @@ exports.loginUser = async (req, res) => {
 
     const token = jwt.sign(
       { userId: user._id, email: req.body.email },
-      config.jwtSecretKey,
+      process.env.JWT_SECRET,
       { expiresIn: "1h" }
     );
+
     return res.json({
       message: "Login successful",
       access_token: token,
