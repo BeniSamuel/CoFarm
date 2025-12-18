@@ -26,7 +26,7 @@ const FarmRight = () => {
         const token = localStorage.getItem("accessToken");
         if (token) {
           const response = await axios.get(
-            "http://localhost:4040/api/v1/farms",
+            `${import.meta.env.VITE_BACKEND_URL}/api/v1/farms`,
             {
               headers: {
                 Authorization: `Bearer ${token}`,
@@ -77,12 +77,11 @@ const FarmRight = () => {
           .split(",")
           .map((c) => c.trim())
           .filter(Boolean);
-      
+
         categoriesArray.forEach((category) => {
           farmData.append("cropCategories[]", category);
         });
       }
-      
 
       // Append images
       formData.images.forEach((file) => {
@@ -90,7 +89,7 @@ const FarmRight = () => {
       });
 
       const response = await axios.post(
-        "http://localhost:4040/api/v1/farms",
+         `${import.meta.env.VITE_BACKEND_URL}/api/v1/farms`,
         farmData,
         {
           headers: {
@@ -128,7 +127,7 @@ const FarmRight = () => {
   const deleteFarm = async (id) => {
     try {
       const token = localStorage.getItem("accessToken");
-      await axios.delete(`http://localhost:4040/api/v1/farms/${id}`, {
+      await axios.delete(`${import.meta.env.VITE_BACKEND_URL}/api/v1/farms/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

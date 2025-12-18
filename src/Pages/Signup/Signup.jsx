@@ -13,7 +13,7 @@ const SignUp = () => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "http://localhost:4040/api/v1/auth/register",
+        `${import.meta.env.VITE_BACKEND_URL}/api/v1/auth/register`,
         inform
       );
       console.log(response.data);

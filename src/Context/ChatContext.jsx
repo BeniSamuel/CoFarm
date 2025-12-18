@@ -4,7 +4,7 @@ import axios from "axios";
 
 export const ChatContext = createContext();
 
-const socket = io("http://localhost:4040", { autoConnect: false }); // Disable auto-connect
+const socket = io(`${import.meta.env.VITE_BACKEND_URL}`, { autoConnect: false }); // Disable auto-connect
 
 // eslint-disable-next-line react/prop-types
 const ChatProvider = ({ children }) => {
@@ -19,7 +19,7 @@ const ChatProvider = ({ children }) => {
         const token = localStorage.getItem("accessToken");
         if (token) {
           const response = await axios.get(
-            "http://localhost:4040/api/v1/users/me",
+             `${import.meta.env.VITE_BACKEND_URL}/api/v1/users/me`,
             {
               headers: {
                 Authorization: `Bearer ${token}`,
@@ -60,7 +60,7 @@ const ChatProvider = ({ children }) => {
         const token = localStorage.getItem("accessToken");
         if (token && loggedUser._id) {
           const response = await axios.get(
-            "http://localhost:4040/api/v1/groups",
+            `${import.meta.env.VITE_BACKEND_URL}/api/v1/groups`,
             {
               headers: {
                 Authorization: `Bearer ${token}`,
@@ -88,7 +88,7 @@ const ChatProvider = ({ children }) => {
       const token = localStorage.getItem("accessToken");
       if (token) {
         const response = await axios.get(
-          "http://localhost:4040/api/v1/groups",
+           `${import.meta.env.VITE_BACKEND_URL}/api/v1/groups`,
           {
             headers: {
               Authorization: `Bearer ${token}`,

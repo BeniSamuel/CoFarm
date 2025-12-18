@@ -20,7 +20,7 @@ const Dashboard = () => {
           navigate("/");
           return;
         }
-        await axios.get("http://localhost:4040/api/v1/users/me", {
+        await axios.get( `${import.meta.env.VITE_BACKEND_URL}/api/v1/users/me`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },

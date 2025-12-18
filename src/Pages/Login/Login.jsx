@@ -12,7 +12,7 @@ const Login = () => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "http://localhost:4040/api/v1/auth/login",
+        `${import.meta.env.VITE_BACKEND_URL}/api/v1/auth/login`,
         inform
       );
 
