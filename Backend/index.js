@@ -1,3 +1,4 @@
+require("dotenv").config()
 // index.js or your main route file
 const express = require("express");
 const mongoose = require("mongoose");
@@ -19,9 +20,10 @@ const path = require("path");
 
 const app = express();
 const server = http.createServer(app);
+const dbUrl = process.env.ATLAS_URL;
 
 mongoose
-  .connect("mongodb://localhost/farmers", {
+  .connect(dbUrl, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
