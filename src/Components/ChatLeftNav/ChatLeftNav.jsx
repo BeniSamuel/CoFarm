@@ -27,7 +27,7 @@ const ChatLeftNav = () => {
     const fetchUsers = async () => {
       try {
         const token = localStorage.getItem("accessToken");
-        const response = await axios.get("http://localhost:4040/api/v1/users", {
+        const response = await axios.get( `${import.meta.env.VITE_BACKEND_URL}/api/v1/users`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -95,7 +95,7 @@ const ChatLeftNav = () => {
     try {
       const token = localStorage.getItem("accessToken");
       const response = await axios.post(
-        "http://localhost:4040/api/v1/groups",
+         `${import.meta.env.VITE_BACKEND_URL}api/v1/groups`,
         {
           name: groupName,
           memberIds: selectedUsersForGroup,
