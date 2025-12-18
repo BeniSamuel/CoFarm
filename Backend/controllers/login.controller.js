@@ -1,3 +1,4 @@
+require("dotenv").config()
 const User = require("../models/user.model");
 const jwt = require("jsonwebtoken");
 const Joi = require("joi");
@@ -23,7 +24,7 @@ exports.loginUser = async (req, res) => {
 
     const token = jwt.sign(
       { userId: user._id, email: req.body.email },
-      process.env.JWT_SECRET,
+      process.env.JWT_SECRET_KEY,
       { expiresIn: "1h" }
     );
 
