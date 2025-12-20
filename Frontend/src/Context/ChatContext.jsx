@@ -1,10 +1,12 @@
-import { createContext, useState, useEffect } from "react";
+import { createContext, useState, useEffect, useCallback } from "react";
 import io from "socket.io-client";
 import axios from "axios";
 
 export const ChatContext = createContext();
 
-const socket = io("http://localhost:4040", { autoConnect: false }); // Disable auto-connect
+const socket = io(`${import.meta.env.VITE_BACKEND_URL}`, {
+  autoConnect: false,
+}); // Disable auto-connect
 
 // eslint-disable-next-line react/prop-types
 const ChatProvider = ({ children }) => {
@@ -14,42 +16,83 @@ const ChatProvider = ({ children }) => {
   const [groups, setGroups] = useState([]);
 
   useEffect(() => {
-    const fetchLoggedUser = async () => {
+    let isMounted = true;
+
+    const fetchUserData = async () => {
+      const token = localStorage.getItem("accessToken");
+      if (!token) {
+        if (isMounted) {
+          setLoggedUser({});
+        }
+        return;
+      }
+
       try {
-        const token = localStorage.getItem("accessToken");
-        if (token) {
-          const response = await axios.get(
-            "http://localhost:4040/api/v1/users/me",
-            {
-              headers: {
-                Authorization: `Bearer ${token}`,
-              },
-            }
-          );
+        const response = await axios.get(
+          `${import.meta.env.VITE_BACKEND_URL}/api/v1/users/me`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+
+        if (isMounted) {
           setLoggedUser(response.data);
 
-          // Join socket room with userId
           if (response.data._id) {
+            // Disconnect if already connected to avoid duplicate connections
+            if (socket.connected) {
+              socket.disconnect();
+            }
+            socket.connect();
             socket.emit("joinRoom", response.data._id);
           }
         }
       } catch (error) {
-        console.error("Error fetching logged user:", error);
+        // Suppress 401 errors during initial mount (expected when no token)
+        if (error.response?.status === 401) {
+          // Silent fail - token might not exist yet
+        } else if (error.response?.status) {
+          console.error("Auth error on mount:", error.response?.data?.message);
+        }
+        if (isMounted) {
+          setLoggedUser({});
+        }
+        // Don't remove token on 401 during initial load
+        if (error.response?.status === 403) {
+          localStorage.removeItem("accessToken");
+        }
       }
     };
 
-    fetchLoggedUser();
-  }, []);
+    // Fetch user on mount
+    fetchUserData();
 
-  useEffect(() => {
-    socket.connect(); // Connect only once
-    console.log("Socket connected"); // Debugging
+    // Listen for storage changes (for cross-tab communication)
+    const handleStorageChange = (e) => {
+      if (e.key === "accessToken") {
+        fetchUserData();
+      }
+    };
+
+    window.addEventListener("storage", handleStorageChange);
 
     return () => {
-      socket.disconnect(); // Disconnect on unmount
-      console.log("Socket disconnected"); // Debugging
+      isMounted = false;
+      window.removeEventListener("storage", handleStorageChange);
     };
   }, []);
+
+  // useEffect(() => {
+  //   socket.connect(); // Connect only once
+  //   console.log("Socket connected"); // Debugging
+
+  //   return () => {
+  //     socket.disconnect(); // Disconnect on unmount
+  //     console.log("Socket disconnected"); // Debugging
+  //   };
+  // }, []);
 
   // Remove duplicate socket listener - handled in ChatMessage component
 
@@ -60,7 +103,7 @@ const ChatProvider = ({ children }) => {
         const token = localStorage.getItem("accessToken");
         if (token && loggedUser._id) {
           const response = await axios.get(
-            "http://localhost:4040/api/v1/groups",
+            `${import.meta.env.VITE_BACKEND_URL}/api/v1/groups`,
             {
               headers: {
                 Authorization: `Bearer ${token}`,
@@ -88,7 +131,7 @@ const ChatProvider = ({ children }) => {
       const token = localStorage.getItem("accessToken");
       if (token) {
         const response = await axios.get(
-          "http://localhost:4040/api/v1/groups",
+          `${import.meta.env.VITE_BACKEND_URL}/api/v1/groups`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -101,6 +144,63 @@ const ChatProvider = ({ children }) => {
       console.error("Error fetching groups:", error);
     }
   };
+
+  // Function to fetch user - can be called from anywhere
+  const fetchLoggedUser = useCallback(async () => {
+    const token = localStorage.getItem("accessToken");
+    if (!token) {
+      setLoggedUser({});
+      return null;
+    }
+
+    try {
+      const response = await axios.get(
+        `${import.meta.env.VITE_BACKEND_URL}/api/v1/users/me`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      setLoggedUser(response.data);
+
+      if (response.data._id) {
+        // Disconnect if already connected to avoid duplicate connections
+        if (socket.connected) {
+          socket.disconnect();
+        }
+        socket.connect();
+        socket.emit("joinRoom", response.data._id);
+      }
+
+      return response.data;
+    } catch (error) {
+      // Suppress 401 errors in console during initial load (expected when no token)
+      // Only log if it's a real authentication error after login
+      if (error.response?.status === 401) {
+        // Only log once, not repeatedly
+        if (!error.response?.data?.message?.includes("not found")) {
+          console.warn(
+            "Authentication failed:",
+            error.response?.data?.message || "Invalid token"
+          );
+        }
+      } else if (error.response?.status) {
+        console.error("Auth error:", {
+          status: error.response.status,
+          message: error.response?.data?.message,
+        });
+      }
+      setLoggedUser({});
+      // Don't remove token on 401 - might be a backend config issue
+      // Only remove on 403 (Forbidden)
+      if (error.response?.status === 403) {
+        localStorage.removeItem("accessToken");
+      }
+      return null;
+    }
+  }, []);
 
   return (
     <ChatContext.Provider
@@ -115,6 +215,7 @@ const ChatProvider = ({ children }) => {
         groups,
         addGroup,
         refreshGroups,
+        fetchLoggedUser,
       }}
     >
       {children}

@@ -27,11 +27,14 @@ const ChatLeftNav = () => {
     const fetchUsers = async () => {
       try {
         const token = localStorage.getItem("accessToken");
-        const response = await axios.get("http://localhost:4040/api/v1/users", {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
+        const response = await axios.get(
+          `${import.meta.env.VITE_BACKEND_URL}/api/v1/users`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
         // Filter out the logged-in user from the list
         const filtered = response.data.filter(
           (user) => user._id !== loggedUser._id
@@ -95,7 +98,7 @@ const ChatLeftNav = () => {
     try {
       const token = localStorage.getItem("accessToken");
       const response = await axios.post(
-        "http://localhost:4040/api/v1/groups",
+        `${import.meta.env.VITE_BACKEND_URL}/api/v1/groups`,
         {
           name: groupName,
           memberIds: selectedUsersForGroup,
