@@ -25,7 +25,7 @@ const ChatMessage = () => {
       try {
         const token = localStorage.getItem("accessToken");
         const response = await axios.post(
-           `${import.meta.env.VITE_BACKEND_URL}/api/v1/groups/${currentUser._id}/messages`,
+          `http://localhost:4040/api/v1/groups/${currentUser._id}/messages`,
           { message: messageText },
           {
             headers: {
@@ -70,7 +70,7 @@ const ChatMessage = () => {
         const token = localStorage.getItem("accessToken");
         axios
           .get(
-             `${import.meta.env.VITE_BACKEND_URL}/api/v1/groups/${currentUser._id}/messages`,
+            `http://localhost:4040/api/v1/groups/${currentUser._id}/messages`,
             {
               headers: {
                 Authorization: `Bearer ${token}`,
@@ -90,7 +90,7 @@ const ChatMessage = () => {
         // Fetch private messages
         axios
           .get(
-             `${import.meta.env.VITE_BACKEND_URL}/api/v1/messages/${loggedUser._id}/${currentUser._id}`
+            `http://localhost:4040/api/v1/messages/${loggedUser._id}/${currentUser._id}`
           )
           .then((response) => {
             setMessages(response.data || []);

@@ -1,8 +1,28 @@
 import { useState, useEffect, useContext } from "react";
+import axios from "axios";
 import { ChatContext } from "../../Context/ChatContext";
 
 const Text = () => {
-  const { loggedUser } = useContext(ChatContext);
+  const token = localStorage.getItem("accessToken");
+  const { loggedUser, setLoggedUser } = useContext(ChatContext);
+
+  useEffect(() => {
+    const userInform = async () => {
+      try {
+        const res = await axios.get("http://localhost:4040/api/v1/users/me", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        setLoggedUser(res.data);
+      } catch (error) {
+        console.error("Error occurred: ", error);
+      }
+    };
+    if (token) {
+      userInform();
+    }
+  }, [token, setLoggedUser]);
 
   const messages = [
     "You are welcomed here on the CoFarm. You can see the information about your farm and chat with others.",
@@ -33,9 +53,7 @@ const Text = () => {
               new Date(Date.now()).getHours() < 18
             ? "Good Afternoon"
             : "Good Evening"}
-          <p className=" text-black text-sm ">
-            {loggedUser?.name || "User"} 🖐️
-          </p>
+          <p className=" text-black text-sm ">{loggedUser.name} 🖐️</p>
         </div>
         <p
           className="font-2xl text-sm transition-opacity duration-1000"

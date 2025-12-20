@@ -1,49 +1,29 @@
-import { useState, useContext } from "react";
+import { useState } from "react";
 import axios from "axios";
 import Loginleft from "../../Components/Login-Left/Loginleft";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
-import { ChatContext } from "../../Context/ChatContext";
 
 const Login = () => {
   const [inform, setInform] = useState({ email: "", password: "" });
-  const navigate = useNavigate();
-  const { fetchLoggedUser } = useContext(ChatContext);
+  const navigate = useNavigate(); // Ensure navigate is initialized correctly
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        `${import.meta.env.VITE_BACKEND_URL}/api/v1/auth/login`,
+        "http://localhost:4040/api/v1/auth/login",
         inform
       );
 
       const token = response.data.access_token;
-      console.log("Token set from login page: ", token);
-
-      // Set token in localStorage
+      console.log(token);
       localStorage.setItem("accessToken", token);
-
-      // Fetch user data immediately after setting token
-      const userData = await fetchLoggedUser();
-
-      if (userData && userData._id) {
-        toast.success("Successfully logged in");
-        navigate("/dashboard");
-      } else {
-        console.error("Failed to fetch user data after login");
-        toast.error(
-          "Login successful but failed to fetch user data. Redirecting..."
-        );
-        // Still navigate even if fetch failed - Dashboard will retry
-        setTimeout(() => navigate("/dashboard"), 1000);
-      }
+      toast.success("Successfully logged in");
+      navigate("/dashboard"); // Navigate to dashboard
     } catch (error) {
       console.error("There was an error logging in!", error);
-      toast.error(
-        error.response?.data?.message ||
-          "Login failed. Please check your credentials."
-      );
+      toast.error("Login failed. Please check your credentials."); // Add error toast for better user feedback
     }
   };
 

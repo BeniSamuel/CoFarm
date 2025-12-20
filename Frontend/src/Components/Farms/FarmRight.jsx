@@ -26,7 +26,7 @@ const FarmRight = () => {
         const token = localStorage.getItem("accessToken");
         if (token) {
           const response = await axios.get(
-            `${import.meta.env.VITE_BACKEND_URL}/api/v1/farms`,
+            "http://localhost:4040/api/v1/farms",
             {
               headers: {
                 Authorization: `Bearer ${token}`,
@@ -77,11 +77,12 @@ const FarmRight = () => {
           .split(",")
           .map((c) => c.trim())
           .filter(Boolean);
-
+      
         categoriesArray.forEach((category) => {
           farmData.append("cropCategories[]", category);
         });
       }
+      
 
       // Append images
       formData.images.forEach((file) => {
@@ -89,7 +90,7 @@ const FarmRight = () => {
       });
 
       const response = await axios.post(
-        `${import.meta.env.VITE_BACKEND_URL}/api/v1/farms`,
+        "http://localhost:4040/api/v1/farms",
         farmData,
         {
           headers: {
@@ -127,14 +128,11 @@ const FarmRight = () => {
   const deleteFarm = async (id) => {
     try {
       const token = localStorage.getItem("accessToken");
-      await axios.delete(
-        `${import.meta.env.VITE_BACKEND_URL}/api/v1/farms/${id}`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      await axios.delete(`http://localhost:4040/api/v1/farms/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
       setFarms((prev) => prev.filter((farm) => farm._id !== id));
       toast.success("Farm deleted successfully!");
@@ -343,9 +341,7 @@ const FarmCard = ({ farm, onDelete }) => {
               src={
                 farm.images[currentImageIndex]?.startsWith("http")
                   ? farm.images[currentImageIndex]
-                  : `${import.meta.env.VITE_BACKEND_URL}${
-                      farm.images[currentImageIndex]
-                    }`
+                  : `http://localhost:4040${farm.images[currentImageIndex]}`
               }
               alt={farm.name}
               className="w-full h-full object-cover transition-opacity duration-500"
