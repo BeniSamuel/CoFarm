@@ -1,6 +1,6 @@
-require("dotenv").config;
+require("dotenv").config();
 
-module.export = {
+module.exports = {
   port: 4040,
   jwtSecretKey: process.env.JWT_SECRET_KEY,
 };

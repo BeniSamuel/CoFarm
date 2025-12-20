@@ -32,7 +32,7 @@ const UploadProfile = () => {
     try {
       const token = localStorage.getItem("accessToken");
       const response = await axios.post(
-        "http://localhost:4040/api/v1/users/upload-profile",
+        `${import.meta.env.VITE_BACKEND_URL}/api/v1/users/upload-profile`,
         formData,
         {
           headers: {
